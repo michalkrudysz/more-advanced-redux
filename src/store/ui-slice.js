@@ -7,7 +7,7 @@ const uiSlice = createSlice({
   reducers: {
     // metoda toogle przyjmuje stan i zmienia wartość cartIsVisible na przeciwną
     // warto podkreślić, że dzięki reduxtool, mogę tak zmienić stan na przeciwny, bez konieczności przekazywania całego stanu
-    toogle(state) {
+    toggle(state) {
       state.cartIsVisible = !state.cartIsVisible;
     },
   },
