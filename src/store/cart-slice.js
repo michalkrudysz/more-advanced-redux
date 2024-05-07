@@ -8,23 +8,22 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItemToCart(state, action) {
-      const newItem = action.payload; // pobieram payload z akcji
+      const newItem = action.payload; // pobieram nowy produkt z akcji
       const existingItem = state.items.find((item) => item.id === newItem.id); // sprawdzam czy item istnieje w koszyku
-      //jeśli ten produkt nie istnieje, to go dodaje do koszyka
       state.totalQuantity++;
       if (!existingItem) {
+        // Dodaję nowy produkt do tablicy items w stanie
         state.items.push({
-          itemId: newItem.id,
+          id: newItem.id,
           price: newItem.price,
           quantity: 1,
-          totalPrice: newItem.price,
-          name: newItem.title,
+          totalPrice: newItem.price, // Początkowa cena całkowita to cena jednostkowa
+          title: newItem.title, // Dodanie tytułu produktu do obiektu w stanie
         });
-      }
-      //jeżeli już ten produkt jest w koszyku, to zwiększam jego ilość i cenę
-      else {
+      } else {
+        // Zwiększam ilość i całkowitą cenę istniejącego produktu
         existingItem.quantity++;
-        existingItem.totalPrice = existingItem.totalPrice + newItem.price;
+        existingItem.totalPrice += newItem.price;
       }
     },
     removeItemFromCart(state, action) {
@@ -32,10 +31,12 @@ const cartSlice = createSlice({
       const existingItem = state.items.find((item) => item.id === id);
       state.totalQuantity--;
       if (existingItem.quantity === 1) {
-        state.items = state.items.filter((item) => item.id !== id); // jeśli ilość jest jedena, zostawiamy wszystkie elementy w tablicy poza tym, którego mamy id za pomocą metody filter
+        // Usuwam produkt z tablicy, jeśli ilość to 1
+        state.items = state.items.filter((item) => item.id !== id);
       } else {
+        // Zmniejszam ilość i całkowitą cenę produktu
         existingItem.quantity--;
-        existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+        existingItem.totalPrice -= existingItem.price;
       }
     },
   },
