@@ -5,7 +5,10 @@ import cartSlice from "./cart-slice"; // importuję slice cartSlice
 
 // konfiguruję store
 const store = configureStore({
-  reducer: { ui: uiSlice.reducer, cart: cartSlice.reducer }, // przekazuję reducer uiSlice
+  reducer: {
+    ui: uiSlice.reducer,
+    cart: cartSlice.reducer,
+  }, // przekazuję reducer uiSlice
 });
 
 export default store; // eksportuję store
