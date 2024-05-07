@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"; // pobieram z redux toolkit funkcję createSlice
 
-createSlice({
+const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
@@ -26,6 +26,18 @@ createSlice({
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
       }
     },
-    removeItemFromCart() {},
+    removeItemFromCart(state, action) {
+      const id = action.payload;
+      const existingItem = state.items.find((item) => item.id === id);
+      if (existingItem.quantity === 1) {
+        state.items = state.items.filter((item) => item.id !== id); // jeśli ilość jest jedena, zostawiamy wszystkie elementy w tablicy poza tym, którego mamy id za pomocą metody filter
+      } else {
+        existingItem.quantity--;
+        existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+      }
+    },
   },
 });
+
+export const cartActions = cartSlice.actions; // exportuję akcje z cartSlice dla komponentów i dispatch
+export default cartSlice.reducer;
