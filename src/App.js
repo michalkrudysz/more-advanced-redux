@@ -7,6 +7,8 @@ import { uiActions } from "./store/ui-slice";
 import Notification from "./components/UI/Notification";
 import { Fragment } from "react";
 
+let isInitial = true;
+
 function App() {
   const dispatch = useDispatch(); // useDispatch pozwala na wywołanie akcji z store
   const showCart = useSelector((state) => state.ui.cartIsVisible); // useSelector pozwala na pobranie stanu z store (w tym przypadku cartIsVisible)
@@ -41,6 +43,11 @@ function App() {
         })
       );
     };
+
+    if (isInitial) {
+      isInitial = false;
+      return;
+    }
 
     sendCartData().catch((error) => {
       dispatch(
