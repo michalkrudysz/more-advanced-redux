@@ -5,7 +5,7 @@ import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
 import { Fragment } from "react";
-import { sendCartData } from "./store/cart-slice";
+import { sendCartData, fetchCartData } from "./store/cart-actions";
 
 let isInitial = true;
 
@@ -16,13 +16,19 @@ function App() {
   const notification = useSelector((state) => state.ui.notification); // useSelector pozwala na pobranie stanu z store (w tym przypadku notification)
 
   useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart)); // Wysyłam dane z koszyka do bazy danych
+    if (cart.changed) {
+      // Sprawdzam czy koszyk został zmieniony i dopiero wtedy wysyłam dane
+      dispatch(sendCartData(cart)); // Wysyłam dane z koszyka do bazy danych
+    }
   }, [cart, dispatch]);
-
   return (
     <Fragment>
       {notification && (
