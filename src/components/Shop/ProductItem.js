@@ -16,11 +16,11 @@ const ProductItem = (props) => {
       <Card>
         <header>
           <h3>{title}</h3>
-          <div className={classes.price}>${price.toFixed(2)}</div>
+          <div className={classes.price}>{price.toFixed(2)} zł</div>
         </header>
         <p>{description}</p>
         <div className={classes.actions}>
-          <button onClick={addToCartHandler}>Add to Cart</button>
+          <button onClick={addToCartHandler}>Dodaj do koszyka</button>
         </div>
       </Card>
     </li>

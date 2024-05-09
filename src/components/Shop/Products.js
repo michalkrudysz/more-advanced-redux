@@ -5,21 +5,21 @@ const DUMMY_PRODUCTS = [
   {
     id: "p1",
     price: 6,
-    title: "My First Book",
-    description: "The first book I ever wrote",
+    title: "Moja pierwsza książka",
+    description: "Pierwsza książka, którą kiedykolwiek napisałem",
   },
   {
     id: "p2",
     price: 5,
-    title: "My Second Book",
-    description: "The second book I ever wrote",
+    title: "Moja druga książka",
+    description: "Druga książka, którą kiedykolwiek napisałem",
   },
 ];
 
 const Products = (props) => {
   return (
     <section className={classes.products}>
-      <h2>Buy your favorite products</h2>
+      <h2>Kup swoje ulubione produkty</h2>
       <ul>
         {DUMMY_PRODUCTS.map((product) => (
           <ProductItem
